@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import Todos from './components/Todos'
+import React, { Component } from 'react';
+import Header from './components/layout/Header';
+import Todos from './components/Todos';
+import AddTodo from './components/AddTodo';
 
 import './App.css';
 
-export default class App extends Component {
+class App extends Component {
     state = {
         todos: [
             {
@@ -34,12 +36,23 @@ export default class App extends Component {
         })});
         console.log(id);
     }
-
+    
+    delTodo = (id) => {
+        this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]});
+    }
     render() {
         return (
-            <div>
-                <Todos todos={this.state.todos} markComplete={this.markComplete}/>
+            <div className="App">
+                <div className="container">
+                    <Header />
+                    <AddTodo />
+                    <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
+                </div>
             </div>
         )
     }
 }
+
+
+
+export default App;
